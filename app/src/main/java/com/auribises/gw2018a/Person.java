@@ -1,6 +1,8 @@
 package com.auribises.gw2018a;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable{
 
     public String name;
     public String email;

@@ -43,8 +43,26 @@ public class ActivityOne extends AppCompatActivity {
 
         Toast.makeText(this,person.toString(),Toast.LENGTH_LONG).show();
 
-        //Intent intent = new Intent(ActivityOne.this,ActivityTwo.class);
-        //startActivity(intent);
+        // To start a new Activity
+        Intent intent = new Intent(ActivityOne.this,ActivityTwo.class);
+
+        //1. FP1
+        //intent.putExtra("keyName",person.name);
+        //intent.putExtra("keyEmail",person.email);
+        //intent.putExtra("keyAge",30);
+
+        //2. FP2
+        /*Bundle bundle = new Bundle();
+        bundle.putString("keyName",person.name);
+        bundle.putString("keyEmail",person.email);
+        bundle.putInt("keyAge",30);
+
+        intent.putExtra("keyBundle",bundle);*/
+
+        //3. FP3 | Object shall be Serialized
+        intent.putExtra("keyPerson",person);
+
+        startActivity(intent);
 
     }
 }

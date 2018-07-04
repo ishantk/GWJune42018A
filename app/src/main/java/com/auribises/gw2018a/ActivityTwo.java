@@ -19,6 +19,30 @@ public class ActivityTwo extends AppCompatActivity {
         eTxtEmail = findViewById(R.id.editTextEmail);
 
         btnSubmit = findViewById(R.id.buttonSubmit);
+
+        // Receive the Intent from Calling Activity
+        Intent rcv = getIntent();
+
+        //String name = rcv.getStringExtra("keyName");
+        //String email = rcv.getStringExtra("keyEmail");
+        //int age = rcv.getIntExtra("keyAge",0);
+
+        /*Bundle rcvBun = rcv.getBundleExtra("keyBundle");
+
+        String name = rcvBun.getString("keyName");
+        String email = rcvBun.getString("keyEmail");
+        int age = rcvBun.getInt("keyAge",0);
+
+        eTxtName.setText(name);
+        eTxtEmail.setText(email+" - Age: "+age);
+        */
+
+        Person person = (Person) rcv.getSerializableExtra("keyPerson");
+        eTxtName.setText(person.name);
+        eTxtEmail.setText(person.email);
+
+
+
     }
 
     @Override
