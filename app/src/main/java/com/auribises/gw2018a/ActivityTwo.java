@@ -21,7 +21,7 @@ public class ActivityTwo extends AppCompatActivity {
         btnSubmit = findViewById(R.id.buttonSubmit);
 
         // Receive the Intent from Calling Activity
-        Intent rcv = getIntent();
+        //Intent rcv = getIntent();
 
         //String name = rcv.getStringExtra("keyName");
         //String email = rcv.getStringExtra("keyEmail");
@@ -37,9 +37,9 @@ public class ActivityTwo extends AppCompatActivity {
         eTxtEmail.setText(email+" - Age: "+age);
         */
 
-        Person person = (Person) rcv.getSerializableExtra("keyPerson");
-        eTxtName.setText(person.name);
-        eTxtEmail.setText(person.email);
+        //Person person = (Person) rcv.getSerializableExtra("keyPerson");
+        //eTxtName.setText(person.name);
+        //eTxtEmail.setText(person.email);
 
 
 
@@ -53,6 +53,19 @@ public class ActivityTwo extends AppCompatActivity {
     }
 
     public void clickHandler(View view){
+
+        String name = eTxtName.getText().toString();
+        String email = eTxtEmail.getText().toString();
+
+        // Intent is not suppose to start any Activity
+        // Will only hold data
+        Intent data = new Intent();
+        data.putExtra("keyName",name);
+        data.putExtra("keyEmail",email);
+
+        // Use Technique called Bundle and Serializable as well
+
+        setResult(201,data); // To Send the data back to ActivityOne
         finish();
     }
 }
