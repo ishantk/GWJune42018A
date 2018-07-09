@@ -1,5 +1,6 @@
 package com.auribises.gw2018a;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,13 +28,20 @@ public class JSONParserActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<String> adapter;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jsonparser);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+
         listView = findViewById(R.id.listView);
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1);
+
+        progressDialog.show();
 
         task = new BookFetchTask();
         task.execute(); // for Java Thread -> task.start();
@@ -117,6 +125,8 @@ public class JSONParserActivity extends AppCompatActivity {
 
 
                 listView.setAdapter(adapter);
+
+                progressDialog.dismiss();
 
             }catch (Exception e){
                 e.printStackTrace();
