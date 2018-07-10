@@ -1,5 +1,6 @@
 package com.auribises.gw2018a;
 
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,5 +71,15 @@ public class AllSongsActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String songName = adapter.getItem(position);
         Toast.makeText(this,"You Selected: "+songName,Toast.LENGTH_LONG).show();
+
+        // Explicit Intent
+        //Intent intent = new Intent(AllSongsActivity.this,PlayActivity.class);
+
+        // Implicit Intent
+        Intent intent = new Intent("com.auribises.gw2018a.playactivity");
+
+
+        intent.putExtra("keySong",songName);
+        startActivity(intent);
     }
 }
