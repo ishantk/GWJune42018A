@@ -2,13 +2,18 @@ package com.auribises.gw2018a;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class AllStudentsActivity extends AppCompatActivity {
+public class AllStudentsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    ListView listView;
+    //ListView listView;
+    GridView listView;
     ArrayList<Student> students;
     StudentsAdapter adapter;
 
@@ -31,6 +36,7 @@ public class AllStudentsActivity extends AppCompatActivity {
 
         adapter = new StudentsAdapter(this,R.layout.list_item,students);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -38,5 +44,11 @@ public class AllStudentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_students);
         initViews();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Student student = students.get(position);
+        Toast.makeText(this,"You Selected: "+student.name,Toast.LENGTH_LONG).show();
     }
 }
