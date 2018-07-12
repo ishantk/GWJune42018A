@@ -45,7 +45,6 @@ public class StudentsAdapter extends ArrayAdapter<Student>{
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         //1. Create a View which points to Layout i.e. list_item
-
         View view = LayoutInflater.from(context).inflate(resource,parent,false);
 
         ImageView imageView = view.findViewById(R.id.imageView);

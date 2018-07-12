@@ -2,6 +2,9 @@ package com.auribises.gw2018a;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -13,13 +16,19 @@ import java.util.ArrayList;
 public class AllStudentsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     //ListView listView;
-    GridView listView;
+    //GridView listView;
+
+    RecyclerView recyclerView;
+
     ArrayList<Student> students;
     StudentsAdapter adapter;
 
+    StudentsRecyclerAdapter recyclerAdapter;
+
     void initViews(){
 
-        listView = findViewById(R.id.listView);
+        //listView = findViewById(R.id.listView);
+        recyclerView = findViewById(R.id.recyclerView);
         students = new ArrayList<>();
 
         Student s1 = new Student(R.drawable.category,"John","+91 99999 88888");
@@ -34,9 +43,18 @@ public class AllStudentsActivity extends AppCompatActivity implements AdapterVie
         students.add(s4);
         students.add(s5);
 
-        adapter = new StudentsAdapter(this,R.layout.list_item,students);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        //adapter = new StudentsAdapter(this,R.layout.list_item,students);
+        //listView.setAdapter(adapter);
+        //listView.setOnItemClickListener(this);
+
+        recyclerAdapter = new StudentsRecyclerAdapter(this,R.layout.list_item,students);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+
+
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
