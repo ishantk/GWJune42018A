@@ -49,7 +49,11 @@
             android:exported="true" />
 
         <activity android:name=".DataPersistanceActivity" />
-        <activity android:name=".AllStudentsActivity"></activity>
+        <activity android:name=".AllStudentsActivity" />
+        <activity android:name=".MyFragmentsActivity" />
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/title_activity_chat"></activity>
     </application>
 
 </manifest>
