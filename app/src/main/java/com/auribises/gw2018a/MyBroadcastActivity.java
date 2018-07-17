@@ -80,10 +80,9 @@ public class MyBroadcastActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"myChannelId");
         builder.setContentTitle("This is Title");
         builder.setContentText("This is Text");
-        builder.setChannelId("myChannelId");
         builder.setSmallIcon(R.drawable.ic_menu_camera);
 
         builder.setDefaults(Notification.DEFAULT_ALL); // Lights, Sound and Vibration
