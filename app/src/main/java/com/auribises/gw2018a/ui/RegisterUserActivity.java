@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -68,16 +70,35 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
     ContentResolver resolver;
 
+    boolean updateMode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
         ButterKnife.bind(this);
 
+        Intent rcv = getIntent();
+        updateMode = rcv.hasExtra("keyUser");
+
         btnRegister.setOnClickListener(this);
 
         user = new User();
         resolver = getContentResolver();
+
+        /*Animation animation1 = AnimationUtils.loadAnimation(this,R.anim.alpha_anim);
+        Animation animation2 = AnimationUtils.loadAnimation(this,R.anim.rotate_anim);
+        eTxtName.startAnimation(animation1);
+        btnRegister.startAnimation(animation2);*/
+
+        if(updateMode){
+            user = (User)rcv.getSerializableExtra("keyUser");
+            eTxtName.setText(user.name);
+            eTxtPhone.setText(user.phone);
+            eTxtEmail.setText(user.email);
+            btnRegister.setText("Update "+user.name);
+            getSupportActionBar().setTitle("Update User");
+        }
     }
 
     void insertUserInDB(){
@@ -87,10 +108,20 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         values.put(Util.COL_PHONE,user.phone);
         values.put(Util.COL_EMAIL,user.email);
 
-        Uri uri = resolver.insert(Util.USER_URI,values);
-        Toast.makeText(this,user.name+" Registered !! "+uri.getLastPathSegment(),Toast.LENGTH_LONG).show();
-
-        clearFields();
+        if(!updateMode) {
+            Uri uri = resolver.insert(Util.USER_URI, values);
+            Toast.makeText(this, user.name + " Registered !! " + uri.getLastPathSegment(), Toast.LENGTH_LONG).show();
+            clearFields();
+        }else{
+            String where = Util.COL_ID+" = "+user.id;
+            int i = resolver.update(Util.USER_URI,values,where,null);
+            if(i>0){
+                Toast.makeText(this,user.name+" Updated..."+i,Toast.LENGTH_LONG).show();
+                finish();
+            }else{
+                Toast.makeText(this,user.name+" Not Updated..."+i,Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     void clearFields(){
@@ -143,7 +174,9 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        menu.add(1,101,1,"All Users");
+        if(!updateMode) {
+            menu.add(1, 101, 1, "All Users");
+        }
 
         return super.onCreateOptionsMenu(menu);
     }
